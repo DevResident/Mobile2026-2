@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,18 +7,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F60"
         android:text="Primer linear layout"
         android:textColor="@color/black"
-        android:background="#F60"
         android:textSize="50sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#00BCD4"
         android:text="Primer linear layout"
         android:textColor="@color/black"
-        android:background="#00BCD4"
-        android:textSize="50sp"/>
+        android:textSize="50sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,18 +27,17 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Boton 1">
-        </Button>
+            android:text="Boton 1"></Button>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Boton 2">
-        </Button>
+            android:text="Boton 2"></Button>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Boton 3">
-        </Button>
+            android:text="Boton 3"></Button>
     </LinearLayout>
 
     <LinearLayout
@@ -51,20 +49,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UNAM"
-            android:textAlignment="center">
-        </Button>
+            android:textAlignment="center"></Button>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="click">
-        </Button>
+            android:text="click"></Button>
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="DONE">
-    </Button>
+        android:text="DONE"></Button>
 
 </LinearLayout>
