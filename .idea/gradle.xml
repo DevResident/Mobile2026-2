@@ -5,6 +5,12 @@
       <GradleProjectSettings>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Actividad3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Actividad3" />
+            <option value="$PROJECT_DIR$/Actividad3/app" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
