@@ -29,36 +29,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         miBoton = findViewById(R.id.btnMiBoton);
         miGrupo = findViewById(R.id.txvGrupo);
         miTexto = findViewById(R.id.txvMiTexto);
-
         miBoton.setOnClickListener(this);
 
-        if (alumnos.length > 0) {
-            miGrupo.setText(grupos[indiceGrupo]);
-            miGrupo.setText(alumnos[indiceGrupo][indice]);
-        }
-    }
-
-    private void renderizar() {
-        if (indiceGrupo >= grupos.length) {
-            indiceGrupo = 0;
-        }
-        indice += 1;
-
-        if (indice >= alumnos[indiceGrupo].length) {
-            indice = 0;
-            indiceGrupo++;
-
-            if (indiceGrupo >= alumnos.length) {
-                indiceGrupo = 0;
-            }
-        }
-
-        miGrupo.setText(grupos[indiceGrupo]);
-        miTexto.setText(alumnos[indiceGrupo][indice]);
     }
 
     @Override
     public void onClick(View v) {
-        renderizar();
+        indice += 1;
+        if (indice >= alumnos[indiceGrupo].length) {
+            indice = 0;
+            indiceGrupo += 1;
+            if (indice >= grupos.length) {
+                indiceGrupo = 0;
+            }
+            miGrupo.setText(grupos[indiceGrupo]);
+        }
+        miGrupo.setText(grupos[indiceGrupo]);
+        miTexto.setText(alumnos[indiceGrupo][indice]);
     }
 }
