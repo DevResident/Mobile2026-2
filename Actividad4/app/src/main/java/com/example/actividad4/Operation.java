@@ -7,6 +7,12 @@ public class Operation {
 
     OperationType type;
 
+    public Operation(Double x, Double y, OperationType type) {
+        this.x = x;
+        this.y = y;
+        this.type = type;
+    }
+
     public Double getX() {
         return x;
     }

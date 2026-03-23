@@ -3,23 +3,32 @@ package com.example.actividad4;
 public class ViewModel {
 
     ICalculadora calculadora = new Calculadora();
+    private CalculadoraBuilder builder = new CalculadoraBuilder();
     ViewModel(){
 
     }
 
-    Double add(double x, double y){
-        return calculadora.add(x,y);
+    Double makeOperation(Operation [] operations) {
+        Double cache = 0.0;
+
+        for (Operation operation: operations){
+            cache += makeOperation(operation);
+        }
+        return cache;
     }
 
-    Double minus(double x, double y){
-        return calculadora.minus(x,y);
-    }
-
-    Double multiply(double x, double y){
-        return calculadora.multiply(x,y);
-    }
-
-    Double divide(double x, double y){
-        return calculadora.divide(x,y);
+    Double makeOperation(Operation operation){
+        switch (operation.getType()){
+            case ADD:
+                return calculadora.add(operation.x, operation.y);
+            case MINUS:
+                return calculadora.minus(operation.x, operation.y);
+            case MULTIPLY:
+                return calculadora.multiply(operation.x, operation.y);
+            case DIVIDE:
+                return calculadora.divide(operation.x, operation.y);
+            default:
+                return 0.0;
+        }
     }
 }
