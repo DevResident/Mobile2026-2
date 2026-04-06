@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnIntento.setOnClickListener(v ->{
             //Aquí debemos de crear el Intent
             String inputText = editText.getText().toString().trim();
-            long n = Long.parseLong(inputText);
+            int n = Integer.parseInt(inputText);
             String result = Fibonacci.calcularFibonacci(n);
             Bundle bundle = new Bundle();
             bundle.putString("resultado", result);
