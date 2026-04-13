@@ -4,9 +4,7 @@ public class ViewModel {
 
     ICalculadora calculadora = new Calculadora();
     private CalculadoraBuilder builder = new CalculadoraBuilder();
-    ViewModel(){
-
-    }
+    ViewModel(){}
 
     Double makeOperation(Operation [] operations) {
         Double cache = 0.0;
@@ -17,6 +15,7 @@ public class ViewModel {
         return cache;
     }
 
+    //OPeracion simple
     Double makeOperation(Operation operation){
         switch (operation.getType()){
             case ADD:
@@ -30,5 +29,15 @@ public class ViewModel {
             default:
                 return 0.0;
         }
+    }
+
+    //Jerarquia de operacions
+    Double makeOperation(CalculadoraInput calculadoraInput){
+        Double result = makeOperation(calculadoraInput.operationInitial);
+        for (OperationMin operationMin : calculadoraInput.operations){
+            Operation operation = new Operation(result, operationMin.getX(), operationMin.getOperationType());
+            result = makeOperation(operation);
+        }
+        return  result;
     }
 }
