@@ -2,7 +2,6 @@ package com.example.actividad7;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -39,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         MiCliente miCliente = new MiCliente();
 
-
         AsyncTask.execute(() -> {
-            ArrayList<String> misDatos = miCliente.getElements();
+            ArrayList<Personaje> misDatos = miCliente.getElements();
             runOnUiThread(() -> {
                 adaptador = new MiAdaptador(misDatos);
                 recyclerView.setAdapter(adaptador);
@@ -54,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        miButton.setOnClickListener(v -> {
+        /*miButton.setOnClickListener(v -> {
             // Obtener elemento
             if (!miInput.getText().toString().isBlank()){
                 String newElemento = miInput.getText().toString();
                 adaptador.addElemento(newElemento);
             }
-        });
+        });*/
     }
 }

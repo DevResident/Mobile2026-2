@@ -1,13 +1,10 @@
 package com.example.actividad7;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
@@ -16,22 +13,38 @@ import okhttp3.Response;
 
 public class MiCliente {
 
-    private String url = "XXX";
+    private String url = "https://function-fca-production-ab09.up.railway.app/";
     OkHttpClient client = new OkHttpClient();
 
-    public ArrayList<String> getElements() {
+    public ArrayList<Personaje> getElements() {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String respuesta =  response.body().string();
+            ArrayList<Personaje> elementos = new ArrayList<>();
 
-            ArrayList<String> elementos = new ArrayList<>();
-            JSONObject jsonObject = new JSONObject(respuesta);
-            JSONArray array = jsonObject.getJSONArray("characters");
-            for (int i = 0; i <= array.length(); i++){
-                String elemento = array.getString(i);
-                elementos.add(elemento);
+            if (!response.isSuccessful()) {
+                throw new RuntimeException("HTTP error: " + response.code());
+            }
+
+            JSONArray array = new JSONArray(response.body().string());
+
+            for (int i = 0; i < array.length(); i++){
+                JSONObject elemento = array.getJSONObject(i);
+                String name = elemento.getString("name");
+                String description = elemento.getString("description");
+                String photo = elemento.getString("photo");
+                int attack = elemento.getInt("attack");
+                int defense = elemento.getInt("defense");
+
+                Personaje personaje = new Personaje(
+                        name,
+                        description,
+                        photo,
+                        attack,
+                        defense
+                );
+                elementos.add(personaje);
             }
             return elementos;
         } catch (IOException e) {
