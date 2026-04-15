@@ -23,10 +23,6 @@ public class MiCliente {
         try (Response response = client.newCall(request).execute()) {
             ArrayList<Personaje> elementos = new ArrayList<>();
 
-            if (!response.isSuccessful()) {
-                throw new RuntimeException("HTTP error: " + response.code());
-            }
-
             JSONArray array = new JSONArray(response.body().string());
 
             for (int i = 0; i < array.length(); i++){
