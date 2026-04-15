@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void caracteristica(Personaje personaje) {
-        Intent intent = new Intent(this, Caracteristica.class);
+        Intent intent = new Intent(this, CaracteristicaActivity.class);
         intent.putExtra("nombre", personaje.getName());
         intent.putExtra("descripcion", personaje.getDescription());
         intent.putExtra("foto", personaje.getPhoto());

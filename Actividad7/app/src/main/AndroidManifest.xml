@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".Caracteristica"
+            android:name=".CaracteristicaActivity"
             android:exported="false">
         </activity>
     </application>
