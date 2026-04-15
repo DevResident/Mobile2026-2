@@ -1,5 +1,6 @@
 package com.example.actividad7;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
@@ -37,18 +38,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         MiCliente miCliente = new MiCliente();
-
         AsyncTask.execute(() -> {
             ArrayList<Personaje> misDatos = miCliente.getElements();
+
             runOnUiThread(() -> {
-                adaptador = new MiAdaptador(misDatos);
+                adaptador = new MiAdaptador(misDatos, personaje -> {
+                    caracteristica(personaje);
+                });
                 recyclerView.setAdapter(adaptador);
             });
         });
 
         miButton = findViewById(R.id.button);
         miInput = findViewById(R.id.textInputEditText);
-
         recyclerView = findViewById(R.id.my_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,5 +61,16 @@ public class MainActivity extends AppCompatActivity {
                 adaptador.addElemento(newElemento);
             }
         });*/
+    }
+
+    private void caracteristica(Personaje personaje) {
+        Intent intent = new Intent(this, Caracteristica.class);
+        intent.putExtra("nombre", personaje.getName());
+        intent.putExtra("descripcion", personaje.getDescription());
+        intent.putExtra("foto", personaje.getPhoto());
+        intent.putExtra("ataque", personaje.getAttack());
+        intent.putExtra("defensa", personaje.getDefense());
+
+        startActivity(intent);
     }
 }

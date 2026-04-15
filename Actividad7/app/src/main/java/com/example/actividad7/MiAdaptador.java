@@ -3,6 +3,9 @@ package com.example.actividad7;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -12,9 +15,15 @@ import java.util.ArrayList;
 public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
 
     private ArrayList<Personaje> localDataSet;
+    private OnItemClickListener listener;
 
-    public MiAdaptador(ArrayList<Personaje> dataSet) {
-        localDataSet = dataSet;
+    public interface OnItemClickListener {
+        void onItemClick(Personaje personaje);
+    }
+
+    public MiAdaptador(ArrayList<Personaje> dataSet, OnItemClickListener listener) {
+        this.localDataSet = dataSet;
+        this.listener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -35,16 +44,23 @@ public class MiAdaptador extends RecyclerView.Adapter<MiViewHolder> {
         // contents of the view with that element
         Personaje personaje = localDataSet.get(position);
 
+        // Aqui el set de datos
         String name = personaje.getName();
-        viewHolder.getTextView().setText(name);
+        viewHolder.getTextViewName().setText(name);
 
+        // Aqui la imagen
         String url = personaje.getPhoto();
-
         Glide
                 .with(viewHolder.itemView.getContext())
                 .load(url)
                 .centerCrop()
                 .into(viewHolder.getImageView());
+
+        viewHolder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(personaje);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
