@@ -4,10 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="7dp"
+    app:cardBackgroundColor="@color/colorSurfaceCard"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp"
+    app:strokeColor="@color/colorBorder"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,20 +19,27 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
+        <View
+            android:id="@+id/ivCursoIcon"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_course_icon" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="14dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textCurso"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Curso"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/colorTextPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,10 +52,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_chevron_circle"
+            android:gravity="center"
             android:text="›"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textColor="@color/colorTextSecondary" />
 
     </LinearLayout>
