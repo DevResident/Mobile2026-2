@@ -2,6 +2,7 @@ package com.example.clase12;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ public class CursosFragment extends Fragment {
 
         RecyclerView rvCursos = view.findViewById(R.id.rvCursos);
         rvCursos.setLayoutManager(new LinearLayoutManager(getContext()));
+        TextView tvResumenCursos = view.findViewById(R.id.tvResumenCursos);
 
         AppDatabase db = AppDatabase.getInstance(getContext());
 
@@ -40,7 +42,12 @@ public class CursosFragment extends Fragment {
             List<Cursos> cursosList = db.cursosDao().getAll();
             ArrayList<Cursos> cursosArrayList = new ArrayList<>(cursosList);
 
+            if (!isAdded()) return;
             requireActivity().runOnUiThread(() -> {
+                if (!isAdded()) return;
+                int total = cursosArrayList.size();
+                tvResumenCursos.setText(total == 1 ? "1 curso disponible" : total + " cursos disponibles");
+
                 CursosAdapter adapter = new CursosAdapter(cursosArrayList, curso -> {
                     AlumnosFragment alumnosFragment = new AlumnosFragment();
                     Bundle bundle = new Bundle();

@@ -25,6 +25,11 @@ public class AsistenciasFragment extends Fragment {
     private ArrayList<Asistencias> asistenciasArrayList = new ArrayList<>();
     private AppDatabase db;
     private int alumnoId;
+    private TextView tvResumenAsistencias;
+    private TextView tvFiltroFecha;
+    private TextView tvEmptyAsistencias;
+    private RecyclerView rvAsistencias;
+    private String filtroActivo;
 
     public AsistenciasFragment() {
         super(R.layout.fragment_asistencias);
@@ -40,7 +45,10 @@ public class AsistenciasFragment extends Fragment {
         TextView tvTitulo = view.findViewById(R.id.tvTituloAsistencias);
         tvTitulo.setText(alumnoNombre.isEmpty() ? "Asistencias" : alumnoNombre);
 
-        RecyclerView rvAsistencias = view.findViewById(R.id.rvAsistencias);
+        tvResumenAsistencias = view.findViewById(R.id.tvResumenAsistencias);
+        tvFiltroFecha = view.findViewById(R.id.tvFiltroFecha);
+        tvEmptyAsistencias = view.findViewById(R.id.tvEmptyAsistencias);
+        rvAsistencias = view.findViewById(R.id.rvAsistencias);
         rvAsistencias.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = AppDatabase.getInstance(getContext());
@@ -48,7 +56,10 @@ public class AsistenciasFragment extends Fragment {
         rvAsistencias.setAdapter(adapter);
 
         view.findViewById(R.id.btnBuscarFecha).setOnClickListener(v -> mostrarDatePickerBusqueda());
-        view.findViewById(R.id.btnVerTodas).setOnClickListener(v -> cargarAsistencias());
+        view.findViewById(R.id.btnVerTodas).setOnClickListener(v -> {
+            filtroActivo = null;
+            cargarAsistencias();
+        });
 
         FloatingActionButton fab = view.findViewById(R.id.fabAddAsistencia);
         fab.setOnClickListener(v -> mostrarDialogoFecha());
@@ -68,14 +79,23 @@ public class AsistenciasFragment extends Fragment {
                 lista = db.asistenciasDao().getAsistenciasByAlumno(alumnoId);
             }
             final List<Asistencias> resultado = lista;
-            requireActivity().runOnUiThread(() -> actualizarLista(resultado));
+            if (!isAdded()) return;
+            requireActivity().runOnUiThread(() -> {
+                if (!isAdded()) return;
+                actualizarLista(resultado);
+            });
         });
     }
 
     private void buscarPorFecha(String fecha) {
+        filtroActivo = fecha;
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Asistencias> lista = db.asistenciasDao().getAsistenciasByAlumnoAndFecha(alumnoId, fecha);
-            requireActivity().runOnUiThread(() -> actualizarLista(lista));
+            if (!isAdded()) return;
+            requireActivity().runOnUiThread(() -> {
+                if (!isAdded()) return;
+                actualizarLista(lista);
+            });
         });
     }
 
@@ -83,13 +103,36 @@ public class AsistenciasFragment extends Fragment {
         asistenciasArrayList.clear();
         asistenciasArrayList.addAll(lista);
         adapter.notifyDataSetChanged();
+        actualizarEstado(lista);
+    }
+
+    private void actualizarEstado(List<Asistencias> lista) {
+        int presentes = 0;
+        for (Asistencias a : lista) {
+            if ("Si".equalsIgnoreCase(a.getStatus())) presentes++;
+        }
+        int total = lista.size();
+        int ausentes = total - presentes;
+        String resumen = total == 1
+                ? "1 registro - " + presentes + " presente - " + ausentes + " ausente"
+                : total + " registros - " + presentes + " presentes - " + ausentes + " ausentes";
+        tvResumenAsistencias.setText(resumen);
+
+        if (filtroActivo == null) {
+            tvFiltroFecha.setText("Mostrando todas las asistencias");
+            tvEmptyAsistencias.setText("No hay asistencias registradas");
+        } else {
+            tvFiltroFecha.setText("Filtro activo: " + filtroActivo);
+            tvEmptyAsistencias.setText("No hay asistencias para " + filtroActivo);
+        }
+        tvEmptyAsistencias.setVisibility(lista.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     private void mostrarDatePickerBusqueda() {
         Calendar cal = Calendar.getInstance();
-        new DatePickerDialog(requireContext(), (dp, y, m, d) -> {
-            buscarPorFecha(d + "/" + (m + 1) + "/" + y);
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(requireContext(), (dp, y, m, d) ->
+                buscarPorFecha(d + "/" + (m + 1) + "/" + y),
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void mostrarDialogoFecha() {
@@ -112,7 +155,12 @@ public class AsistenciasFragment extends Fragment {
         Executors.newSingleThreadExecutor().execute(() -> {
             db.asistenciasDao().insert(new Asistencias(0, fecha, status, alumnoId));
             List<Asistencias> lista = db.asistenciasDao().getAsistenciasByAlumno(alumnoId);
-            requireActivity().runOnUiThread(() -> actualizarLista(lista));
+            if (!isAdded()) return;
+            requireActivity().runOnUiThread(() -> {
+                if (!isAdded()) return;
+                filtroActivo = null;
+                actualizarLista(lista);
+            });
         });
     }
 }

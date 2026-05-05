@@ -29,6 +29,7 @@ public class AlumnosFragment extends Fragment {
 
         TextView tvTitulo = view.findViewById(R.id.tvTituloAlumnos);
         tvTitulo.setText(cursoNombre);
+        TextView tvResumenAlumnos = view.findViewById(R.id.tvResumenAlumnos);
 
         RecyclerView rvAlumnos = view.findViewById(R.id.rvAlumnos);
         rvAlumnos.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -50,7 +51,12 @@ public class AlumnosFragment extends Fragment {
             List<Alumnos> alumnosList = db.alumnosDao().getAlumnosByCurso(cursoId);
             ArrayList<Alumnos> alumnosArrayList = new ArrayList<>(alumnosList);
 
+            if (!isAdded()) return;
             requireActivity().runOnUiThread(() -> {
+                if (!isAdded()) return;
+                int total = alumnosArrayList.size();
+                tvResumenAlumnos.setText(total == 1 ? "1 alumno inscrito" : total + " alumnos inscritos");
+
                 AlumnosAdapter adapter = new AlumnosAdapter(alumnosArrayList, alumno -> {
                     AsistenciasFragment asistenciasFragment = new AsistenciasFragment();
                     Bundle bundle = new Bundle();
