@@ -31,7 +31,10 @@ public class CursosFragment extends Fragment {
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Cursos> existing = db.cursosDao().getAll();
             if (existing.isEmpty()) {
-                db.cursosDao().insert(new Cursos(0, "Math"));
+                db.cursosDao().insert(new Cursos(0, "Matemáticas"));
+                db.cursosDao().insert(new Cursos(0, "Ciencias"));
+                db.cursosDao().insert(new Cursos(0, "Historia"));
+                db.cursosDao().insert(new Cursos(0, "Programación"));
             }
 
             List<Cursos> cursosList = db.cursosDao().getAll();

@@ -22,43 +22,31 @@ public class AlumnosAdapter extends RecyclerView.Adapter<AlumnoViewHolder> {
         this.listener = listener;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public AlumnoViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_alumnos, viewGroup, false);
-
         return new AlumnoViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(AlumnoViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+    public void onBindViewHolder(AlumnoViewHolder viewHolder, int position) {
         Alumnos alumno = localDataSet.get(position);
 
-        // Aqui el set de datos
+        String inicial = alumno.getNombre() != null && !alumno.getNombre().isEmpty()
+                ? String.valueOf(alumno.getNombre().charAt(0)).toUpperCase()
+                : "?";
+        viewHolder.getTvInicial().setText(inicial);
         viewHolder.getTextNombre().setText(alumno.getNombre());
-        viewHolder.getTextPrimerApellido().setText(alumno.getPrimerApellido());
-        viewHolder.getTextSegundoApellido().setText(alumno.getSegundoApellido());
+        viewHolder.getTextApellidos().setText(alumno.getPrimerApellido() + " " + alumno.getSegundoApellido());
 
         viewHolder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(alumno);
-            }
+            if (listener != null) listener.onItemClick(alumno);
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return localDataSet.size();
-    }
-
-    public void addElemento(Alumnos newElement) {
-        localDataSet.add(newElement);
     }
 }

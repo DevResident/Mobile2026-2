@@ -1,5 +1,7 @@
 package com.example.clase12;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,42 +24,36 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciaViewHolde
         this.listener = listener;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public AsistenciaViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_asistencias, viewGroup, false);
-
         return new AsistenciaViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(AsistenciaViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+    public void onBindViewHolder(AsistenciaViewHolder viewHolder, int position) {
         Asistencias asistencia = localDataSet.get(position);
 
-        // Aqui el set de datos
         viewHolder.getTextFecha().setText(asistencia.getFecha());
         viewHolder.getTextStatus().setText(asistencia.getStatus());
 
+        boolean asistio = "Si".equalsIgnoreCase(asistencia.getStatus());
+        int color = asistio ? Color.parseColor("#4CAF50") : Color.parseColor("#E53935");
+
+        GradientDrawable badge = new GradientDrawable();
+        badge.setShape(GradientDrawable.RECTANGLE);
+        badge.setCornerRadius(40f);
+        badge.setColor(color);
+        viewHolder.getTextStatus().setBackground(badge);
+
         viewHolder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(asistencia);
-            }
+            if (listener != null) listener.onItemClick(asistencia);
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return localDataSet.size();
-    }
-
-    public void addElemento(Asistencias newElement) {
-        localDataSet.add(newElement);
     }
 }

@@ -28,7 +28,7 @@ public class AlumnosFragment extends Fragment {
         String cursoNombre = getArguments() != null ? getArguments().getString("cursoNombre", "Alumnos") : "Alumnos";
 
         TextView tvTitulo = view.findViewById(R.id.tvTituloAlumnos);
-        tvTitulo.setText("Alumnos - " + cursoNombre);
+        tvTitulo.setText(cursoNombre);
 
         RecyclerView rvAlumnos = view.findViewById(R.id.rvAlumnos);
         rvAlumnos.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -38,8 +38,13 @@ public class AlumnosFragment extends Fragment {
         Executors.newSingleThreadExecutor().execute(() -> {
             List<Alumnos> existing = db.alumnosDao().getAlumnosByCurso(cursoId);
             if (existing.isEmpty() && cursoId != -1) {
-                db.alumnosDao().insertAll(new Alumnos(0, "Josefina", "García", "López", cursoId));
-                db.alumnosDao().insertAll(new Alumnos(0, "Mario", "Pérez", "Martínez", cursoId));
+                db.alumnosDao().insertAll(
+                    new Alumnos(0, "Josefina", "García", "López", cursoId),
+                    new Alumnos(0, "Mario", "Pérez", "Martínez", cursoId),
+                    new Alumnos(0, "Lucía", "Hernández", "Ramos", cursoId),
+                    new Alumnos(0, "Carlos", "Torres", "Vega", cursoId),
+                    new Alumnos(0, "Andrea", "Flores", "Soto", cursoId)
+                );
             }
 
             List<Alumnos> alumnosList = db.alumnosDao().getAlumnosByCurso(cursoId);
