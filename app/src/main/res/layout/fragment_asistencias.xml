@@ -29,13 +29,13 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.example.clase12.DottedTitleTextView
             android:id="@+id/tvTituloAsistencias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="34dp"
             android:text="Asistencias"
-            android:textColor="@color/white"
+            android:textColor="@color/colorTextPrimary"
             android:textSize="28sp"
             android:textStyle="bold" />
 

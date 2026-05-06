@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorAsistioSi">#F2F2F2</color>
+    <color name="colorAsistioNo">#D71920</color>
+    <color name="colorAvatar">#D71920</color>
+    <color name="colorSurface">#050505</color>
+    <color name="colorSurfaceCard">#101010</color>
+    <color name="colorTextPrimary">#F4F4F4</color>
+    <color name="colorTextSecondary">#A5A5A5</color>
+    <color name="colorTextMuted">#6F6F6F</color>
+    <color name="colorPrimary">#D71920</color>
+    <color name="colorPrimaryDark">#090909</color>
+    <color name="colorPrimarySoft">#FFB3B7</color>
+    <color name="colorBorder">#2A2A2A</color>
+    <color name="colorSuccessSoft">#202020</color>
+    <color name="colorDangerSoft">#3A0A0D</color>
+</resources>

@@ -2,9 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorAsistioSi">#4CAF50</color>
-    <color name="colorAsistioNo">#E53935</color>
-    <color name="colorAvatar">#3F51B5</color>
-    <color name="colorSurface">#F5F5F5</color>
-    <color name="colorTextSecondary">#757575</color>
+    <color name="colorAsistioSi">#111111</color>
+    <color name="colorAsistioNo">#D71920</color>
+    <color name="colorAvatar">#D71920</color>
+    <color name="colorSurface">#F7F7F2</color>
+    <color name="colorSurfaceCard">#FFFFFF</color>
+    <color name="colorTextPrimary">#101010</color>
+    <color name="colorTextSecondary">#5E5E5A</color>
+    <color name="colorTextMuted">#8A8A84</color>
+    <color name="colorPrimary">#D71920</color>
+    <color name="colorPrimaryDark">#EFEFE8</color>
+    <color name="colorPrimarySoft">#D71920</color>
+    <color name="colorBorder">#D7D7CF</color>
+    <color name="colorSuccessSoft">#ECECE6</color>
+    <color name="colorDangerSoft">#FFE0E2</color>
 </resources>

@@ -1,11 +1,11 @@
 package com.example.clase12;
 
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -39,13 +39,17 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciaViewHolde
         viewHolder.getTextStatus().setText(asistencia.getStatus());
 
         boolean asistio = "Si".equalsIgnoreCase(asistencia.getStatus());
-        int color = asistio ? Color.parseColor("#4CAF50") : Color.parseColor("#E53935");
+        int color = ContextCompat.getColor(viewHolder.itemView.getContext(),
+                asistio ? R.color.colorAsistioSi : R.color.colorAsistioNo);
+        int textColor = ContextCompat.getColor(viewHolder.itemView.getContext(),
+                asistio ? R.color.colorSurface : R.color.white);
 
         GradientDrawable badge = new GradientDrawable();
         badge.setShape(GradientDrawable.RECTANGLE);
         badge.setCornerRadius(40f);
         badge.setColor(color);
         viewHolder.getTextStatus().setBackground(badge);
+        viewHolder.getTextStatus().setTextColor(textColor);
 
         viewHolder.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(asistencia);

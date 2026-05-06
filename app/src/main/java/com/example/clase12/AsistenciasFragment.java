@@ -39,6 +39,8 @@ public class AsistenciasFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SystemBarInsets.applyStatusBarPadding(view.findViewById(R.id.headerAsistencias));
+
         alumnoId = getArguments() != null ? getArguments().getInt("alumnoId", -1) : -1;
         String alumnoNombre = getArguments() != null ? getArguments().getString("alumnoNombre", "") : "";
 

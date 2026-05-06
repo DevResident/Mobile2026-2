@@ -19,11 +19,14 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <View
+        <ImageView
             android:id="@+id/ivCursoIcon"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:background="@drawable/bg_course_icon" />
+            android:background="@drawable/bg_course_icon"
+            android:contentDescription="@null"
+            android:padding="11dp"
+            android:src="@drawable/ic_nothing_course" />
 
         <LinearLayout
             android:layout_width="0dp"
