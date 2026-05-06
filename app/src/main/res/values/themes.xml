@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Clase13" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/nothing_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/nothing_surface</item>
+        <item name="colorOnSurface">@color/nothing_text</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowBackground">@color/nothing_bg</item>
+        <item name="android:statusBarColor">@color/nothing_bg</item>
+        <item name="android:navigationBarColor">@color/nothing_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+    <style name="Theme.Clase13" parent="Base.Theme.Clase13" />
+</resources>
